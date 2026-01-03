@@ -21,29 +21,22 @@ counting sort、frequency array
 
 **C 骨架：**
 
+```c
 while (scanf("%d", &n) == 1 && n != 0) {
-
-int cnt[100] = {0};
-
-for (int i = 0; i < n; i++) {
-
-scanf("%d", &age);
-
-cnt[age]++;
-
+  int cnt[100] = {0};
+  for (int i = 0; i < n; i++) {
+    int age;
+    scanf("%d", &age);
+    cnt[age]++;
+  }
+  for (int age = 1; age <= 99; age++) {
+    while (cnt[age]--) {
+      printf("%d ", age);
+    }
+  }
+  printf("\n");
 }
-
-for (int a = 1; a <= 99; a++) {
-
-while (cnt[a]--) {
-
-print age a with proper spacing;
-
-}
-
-}
-
-}
+```
 
 **小練習：**
 
@@ -69,27 +62,25 @@ sorting、conditional logic
 
 **C 骨架：**
 
+```c
 scanf("%d", &T);
 
 for (int tc = 1; tc <= T; tc++) {
+  int t1, t2, f, a, quiz[3];
 
-int t1, t2, f, a;
+  scanf("%d %d %d %d %d %d %d", &t1, &t2, &f, &a, &quiz[0], &quiz[1], &quiz[2]);
+  
+  qsort(quiz, 3, sizeof(int), compare); // Assuming compare function is defined elsewhere
 
-int quiz[3];
+  int total = t1 + t2 + f + a + (quiz[1] + quiz[2]) / 2;
 
-read inputs;
-
-sort quiz[3];
-
-int quiz\_avg = (quiz[1] + quiz[2]) / 2;
-
-int total = t1 + t2 + f + a + quiz\_avg;
-
-determine grade by total;
-
-print result;
-
+  if (total >= 90) printf("Case %d: A\n", tc);
+  else if (total >= 80) printf("Case %d: B\n", tc);
+  else if (total >= 70) printf("Case %d: C\n", tc);
+  else if (total >= 60) printf("Case %d: D\n", tc);
+  else printf("Case %d: F\n", tc);
 }
+```
 
 **小練習：**
 
@@ -117,27 +108,18 @@ greedy、sorting、grouping
 
 **C 骨架：**
 
+```c
 scanf("%d", &T);
-
 while (T--) {
-
-scanf("%d", &n);
-
-read price array;
-
-sort price descending;
-
-discount = 0;
-
-for (int i = 2; i < n; i += 3) {
-
-discount += price[i];
-
+  scanf("%d", &n);
+  read price array;
+  sort price descending;
+  int discount = 0;
+  for (int i = 2; i < n; i += 3)
+    discount += price[i];
+  printf("%d\n", discount);
 }
-
-printf("%d\n", discount);
-
-}
+```
 
 **小練習：**
 
@@ -169,37 +151,25 @@ simulation、struct、custom sort
 
 **C 骨架：**
 
+```c++
 struct Team {
-
-int solved;
-
-int penalty;
-
-bool submitted;
-
-int wrong[10];
-
-bool solvedProb[10];
-
+  int solved;
+  int penalty;
+  bool submitted;
+  int wrong[10];
+  bool solvedProb[10];
 };
 
-initialize all teams;
+Initialize teams;
 
-while (read submission) {
-
-update team status;
-
+while (submission received) {
+  Update team status;
 }
 
-sort teams by:
+Sort teams by solved (descending), then penalty (ascending), then team ID (ascending);
 
-solved desc,
-
-penalty asc,
-
-team id asc;
-
-print scoreboard;
+Print scoreboard;
+```
 
 **小練習：**
 
@@ -226,37 +196,24 @@ priority queue、greedy、Huffman-like
 
 **C 骨架：**
 
+```c
 while (scanf("%d", &n) == 1 && n != 0) {
-
-priority\_queue pq;
-
-for (i = 0; i < n; i++) {
-
-scanf("%d", &x);
-
-push x into pq;
-
+  priority_queue pq;
+  for (int i = 0; i < n; i++) {
+    scanf("%d", &x);
+    pq.push(x);
+  }
+  long long cost = 0;
+  while (pq.size() > 1) {
+    int a = pq.top(); pq.pop();
+    int b = pq.top(); pq.pop();
+    long long sum = (long long)a + b;
+    cost += sum;
+    pq.push(sum);
+  }
+  printf("%lld\n", cost);
 }
-
-long long cost = 0;
-
-while (pq.size() > 1) {
-
-a = pop smallest;
-
-b = pop smallest;
-
-sum = a + b;
-
-cost += sum;
-
-push sum into pq;
-
-}
-
-printf("%lld\n", cost);
-
-}
+```
 
 **小練習：**
 
