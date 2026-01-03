@@ -23,45 +23,32 @@ stack、simulation、LIFO
 
 **C 骨架：**
 
+```c
 while (read n && n != 0) {
+  while (read target sequence) {
+    if (first number == 0) break;
 
-while (read target sequence) {
+    stack empty;
+    nextTrain = 1;
+    ok = true;
 
-if first number == 0:
+    for each target value x {
+      while (nextTrain <= n && (stack empty or stack top != x)) {
+        push nextTrain onto stack;
+        nextTrain++;
+      }
 
-break;
+      if (stack top == x) {
+        pop stack;
+      } else {
+        ok = false;
+      }
+    }
 
-stack empty;
-
-nextTrain = 1;
-
-ok = true;
-
-for each target value x {
-
-while (nextTrain <= n && (stack empty or stack top != x)) {
-
-push nextTrain into stack;
-
-nextTrain++;
-
+    print Yes or No;
+  }
 }
-
-if (stack top == x)
-
-pop stack;
-
-else
-
-ok = false;
-
-}
-
-print Yes or No;
-
-}
-
-}
+```
 
 **小練習：**
 
@@ -91,27 +78,21 @@ queue、FIFO、simulation
 
 **C 骨架：**
 
-while (scanf("%d", &n) == 1 && n != 0) {
-
-queue q;
-
-for (i = 1; i <= n; i++)
-
-enqueue i;
-
-while (q.size() > 1) {
-
-discard front of q;
-
-move new front to back;
-
+```c
+while (scanf("%d", &n) == 1 && n) {
+  queue q;
+  for (int i = 1; i <= n; ++i) q.push(i);
+  printf("Discarded cards:");
+  while (q.size() > 1) {
+    printf(" %d", q.front());
+    q.pop();
+    q.push(q.front());
+    q.pop();
+    if (q.size() > 1) printf(",");
+  }
+  printf("\nRemaining card: %d\n", q.front());
 }
-
-print discarded cards;
-
-print remaining card;
-
-}
+```
 
 **小練習：**
 
@@ -140,41 +121,28 @@ greedy、stack top、character comparison
 
 **C 骨架：**
 
-while (read string s) {
+```c
+while (scanf("%s", s) == 1) {
+    int piles = 0;
+    int top_len = 0;
 
-int piles = 0;
-
-char top[100];
-
-for each character c in s {
-
-placed = false;
-
-for (i = 0; i < piles; i++) {
-
-if (top[i] >= c) {
-
-top[i] = c;
-
-placed = true;
-
-break;
-
+    for (int i = 0; s[i]; i++) {
+        char c = s[i];
+        int j;
+        for (j = 0; j < top_len; j++) {
+            if (top[j] >= c) {
+                top[j] = c;
+                break;
+            }
+        }
+        if (j == top_len) {
+            top[top_len++] = c;
+            piles++;
+        }
+    }
+    printf("%d\n", piles);
 }
-
-}
-
-if (!placed) {
-
-top[piles++] = c;
-
-}
-
-}
-
-print piles;
-
-}
+```
 
 **小練習：**
 
@@ -204,41 +172,23 @@ deque、linked list、cursor simulation
 
 **C 骨架：**
 
-while (read line) {
-
-list of strings L;
-
-string buffer;
-
-insertAtFront = false;
-
-for each character c in line {
-
-if (c == '[') {
-
-flush buffer to L;
-
-insertAtFront = true;
-
-} else if (c == ']') {
-
-flush buffer to L;
-
-insertAtFront = false;
-
-} else {
-
-buffer += c;
-
-}
-
-}
-
-flush buffer to L;
-
-print all strings in L order;
-
-}
+```c
+while reading each line:
+  L = list of strings
+  buffer = string
+  insertAtFront = false
+  for each character c in line:
+    if c == '[':
+      flush buffer to L
+      insertAtFront = true
+    else if c == ']':
+      flush buffer to L
+      insertAtFront = false
+    else:
+      buffer += c
+  flush buffer to L
+  print strings in L in order
+```
 
 **小練習：**
 
@@ -267,27 +217,29 @@ priority queue、max heap、simulation
 
 **C 骨架：**
 
+```c
 for each test case {
 
-read battlefields B;
+    read number of battlefields B;
+    read number of green soldiers;
+    read number of blue soldiers;
 
-read green and blue counts;
+    create maxHeap green;
+    create maxHeap blue;
 
-maxHeap green, blue;
+    while (green is not empty AND blue is not empty) {
 
-while (both not empty) {
+        fight up to B pairs of soldiers;
 
-fight up to B pairs;
+        store surviving soldiers in temporary list;
 
-store survivors in temp list;
+        push survivors back into their respective heaps;
+    }
 
-push survivors back to heaps;
-
+    print winner;
+    print remaining soldiers;
 }
-
-print winner and remaining soldiers;
-
-}
+```
 
 **小練習：**
 
