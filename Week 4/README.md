@@ -22,47 +22,37 @@ base conversion、string number、simulation
 
 **C 骨架：**
 
+```c
 char s[50];
-
 int baseA, baseB;
 
 while (scanf("%s %d %d", s, &baseA, &baseB) == 3) {
+  long long value = 0;
 
-long long value = 0;
+  // Convert from base A to decimal
+  for (char *c = s; *c; ++c) {
+    int digit = (*c >= '0' && *c <= '9') ? *c - '0' : *c - 'A' + 10;
+    value = value * baseA + digit;
+  }
 
-// base A -> decimal
-
-for (each character c in s) {
-
-digit = convert c to value;
-
-value = value \* baseA + digit;
-
+  // Convert from decimal to base B
+  if (value == 0) {
+    printf("0");
+  } else {
+    char result[64]; // Assuming base B <= 36 and value fits in 64 digits.
+    int i = 0;
+    while (value > 0) {
+      int digit = value % baseB;
+      result[i++] = (digit < 10) ? digit + '0' : digit - 10 + 'A';
+      value /= baseB;
+    }
+    for (int j = i - 1; j >= 0; --j) {
+      printf("%c", result[j]);
+    }
+  }
+  printf("\n"); // Add a newline for better readability
 }
-
-// decimal -> base B
-
-if (value == 0)
-
-output '0';
-
-else {
-
-while (value > 0) {
-
-digit = value % baseB;
-
-push digit into array;
-
-value /= baseB;
-
-}
-
-reverse and output result;
-
-}
-
-}
+```
 
 **小練習：**
 
@@ -89,27 +79,24 @@ binary representation、bit count、parity
 
 **C 骨架：**
 
+```c
 while (scanf("%d", &n) == 1 && n != 0) {
+  int bits[50], cnt = 0, idx = 0;
+  while (n > 0) {
+    bits[idx++] = n % 2;
+    if (n % 2 == 1) cnt++;
+    n /= 2;
+  }
 
-int bits[50], cnt = 0, idx = 0;
+  // Print bits in reverse order
+  for (int i = idx - 1; i >= 0; i--) {
+      printf("%d", bits[i]);
+  }
+  printf("\n");
 
-while (n > 0) {
-
-bits[idx++] = n % 2;
-
-if (n % 2 == 1)
-
-cnt++;
-
-n /= 2;
-
+  printf("%d\n", cnt);
 }
-
-print bits in reverse order;
-
-print cnt;
-
-}
+```
 
 **小練習：**
 
@@ -136,35 +123,23 @@ bit counting、number representation
 
 **C 骨架：**
 
+```c
 int bitcount(int x) {
-
-int cnt = 0;
-
-while (x > 0) {
-
-cnt += x & 1;
-
-x >>= 1;
-
-}
-
-return cnt;
-
+  int cnt = 0;
+  while (x > 0) {
+    cnt += x & 1;
+    x >>= 1;
+  }
+  return cnt;
 }
 
 while (scanf("%d", &n) == 1) {
-
-int count1 = bitcount(n);
-
-// treat n as decimal digits, convert to hex value
-
-int hexValue = convert decimal digits of n to hex;
-
-int count2 = bitcount(hexValue);
-
-printf("%d %d\n", count1, count2);
-
+  int count1 = bitcount(n);
+  int hexValue = /* convert decimal digits of n to hex */;
+  int count2 = bitcount(hexValue);
+  printf("%d %d\n", count1, count2);
 }
+```
 
 **小練習：**
 
@@ -191,41 +166,30 @@ simulation、sequence、validation
 
 **C 骨架：**
 
+```c
 while (scanf("%lld %lld", &n, &m) == 2) {
+  long long seq[100];
+  int len = 0;
+  seq[len++] = n;
 
-long long seq[100];
+  while (n > 1) {
+    if (n % m != 0) {
+      len = 0;
+      break;
+    }
+    n /= m;
+    seq[len++] = n;
+  }
 
-int len = 0;
-
-bool ok = true;
-
-seq[len++] = n;
-
-while (n > 1) {
-
-if (n % m != 0) {
-
-ok = false;
-
-break;
-
+  if (len > 0 && seq[len - 1] == 1) {
+    for (int i = 0; i < len; i++) {
+      printf("%lld%c", seq[i], (i == len - 1) ? '\n' : ' ');
+    }
+  } else {
+    printf("Boring!\n");
+  }
 }
-
-n /= m;
-
-seq[len++] = n;
-
-}
-
-if (ok && seq[len-1] == 1)
-
-print seq;
-
-else
-
-print "Boring!";
-
-}
+```
 
 **小練習：**
 
@@ -254,27 +218,20 @@ dynamic programming、partition
 
 **C 骨架：**
 
-int dp[101][101];
+```c++
+int dp[101][101] = {0};
+dp[0][0] = 1;
 
-initialize dp[0][0] = 1;
-
-for (int i = 1; i <= k; i++) {
-
-for (int j = 0; j <= n; j++) {
-
-for (int x = 0; x <= j; x++) {
-
-dp[i][j] += dp[i-1][j-x];
-
-dp[i][j] %= 1000000;
-
-}
-
-}
-
+for (int i = 1; i <= k; ++i) {
+  for (int j = 0; j <= n; ++j) {
+    for (int x = 0; x <= j; ++x) {
+      dp[i][j] = (dp[i][j] + dp[i-1][j-x]) % 1000000;
+    }
+  }
 }
 
 print dp[k][n];
+```
 
 **小練習：**
 
