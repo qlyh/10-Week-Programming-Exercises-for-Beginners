@@ -22,43 +22,26 @@ digit simulation、carry、string
 
 **C 骨架：**
 
+```c
 char a[1000], b[1000];
 
-while (scanf("%s %s", a, b) == 2) {
+while (scanf("%s %s", a, b) == 2 && (strcmp(a, "0") || strcmp(b, "0"))) {
+  int i = strlen(a) - 1, j = strlen(b) - 1, carry = 0, count = 0;
 
-if (strcmp(a, "0") == 0 && strcmp(b, "0") == 0)
+  while (i >= 0 || j >= 0) {
+    int da = (i >= 0) ? a[i--] - '0' : 0;
+    int db = (j >= 0) ? b[j--] - '0' : 0;
 
-break;
-
-int i = strlen(a) - 1;
-
-int j = strlen(b) - 1;
-
-int carry = 0, count = 0;
-
-while (i >= 0 || j >= 0) {
-
-int da = (i >= 0) ? a[i--] - '0' : 0;
-
-int db = (j >= 0) ? b[j--] - '0' : 0;
-
-if (da + db + carry >= 10) {
-
-count++;
-
-carry = 1;
-
-} else {
-
-carry = 0;
-
+    if (da + db + carry >= 10) {
+      count++;
+      carry = 1;
+    } else {
+      carry = 0;
+    }
+  }
+  print carry count result;
 }
-
-}
-
-print carry count result;
-
-}
+```
 
 **小練習：**
 
@@ -88,29 +71,22 @@ accumulation、loop
 
 **C 骨架：**
 
+```c
+int T, f;
+long long size, animal, eco, sum;
+
 scanf("%d", &T);
 
 while (T--) {
-
-int f;
-
-long long sum = 0;
-
-scanf("%d", &f);
-
-while (f--) {
-
-long long size, animal, eco;
-
-scanf("%lld %lld %lld", &size, &animal, &eco);
-
-sum += size \* eco;
-
+  scanf("%d", &f);
+  sum = 0;
+  while (f--) {
+    scanf("%lld %lld %lld", &size, &animal, &eco);
+    sum += size * eco;
+  }
+  printf("%lld\n", sum);
 }
-
-printf("%lld\n", sum);
-
-}
+```
 
 **小練習：**
 
@@ -138,29 +114,25 @@ character mapping、array lookup
 
 **C 骨架：**
 
+```c
 char keyboard[] = "`1234567890-=QWERTYUIOP[]\\ASDFGHJKL;'ZXCVBNM,./";
-
 char line[1000];
 
 while (fgets(line, sizeof(line), stdin)) {
-
-for (int i = 0; line[i]; i++) {
-
-if (line[i] == ' ') {
-
-putchar(' ');
-
-} else {
-
-find index k where keyboard[k] == line[i];
-
-putchar(keyboard[k - 1]);
-
+  for (int i = 0; line[i]; i++) {
+    if (line[i] == ' ') {
+      putchar(' ');
+    } else {
+      for (int k = 0; keyboard[k]; k++) {
+        if (keyboard[k] == line[i]) {
+          putchar(keyboard[k - 1]);
+          break;
+        }
+      }
+    }
+  }
 }
-
-}
-
-}
+```
 
 **小練習：**
 
@@ -188,30 +160,25 @@ string number、digit sum、digital root
 
 **C 骨架：**
 
+```c
 char s[1000];
 
-while (scanf("%s", s) == 1) {
+while (scanf("%s", s) == 1 && strcmp(s, "0") != 0) {
+  int sum = digit_sum(s);
+  int degree = 1;
 
-if (strcmp(s, "0") == 0)
+  while (sum >= 10) {
+    sum = digit_sum_of_number(sum);
+    degree++;
+  }
 
-break;
-
-int sum = digit\_sum(s);
-
-int degree = 1;
-
-while (sum >= 10) {
-
-sum = digit\_sum\_of\_number(sum);
-
-degree++;
-
+  if (sum == 9) {
+    printf("result based on degree\n"); // Replace with actual printing logic
+  } else {
+    printf("other result\n"); // Replace with actual printing logic
+  }
 }
-
-check if sum == 9 and print result;
-
-}
-
+```
 **小練習：**
 
 * 改成判斷是否為 3 的倍數
@@ -241,25 +208,19 @@ string processing、exact match、format check
 
 **C 骨架：**
 
+```c
 read n
-
 read n lines of correct output into array A
-
 read m
-
 read m lines of user output into array B
 
-if A and B exactly equal:
-
-print "Accepted"
-
-else if extract\_digits(A) == extract\_digits(B):
-
-print "Presentation Error"
-
-else
-
-print "Wrong Answer"
+if A and B are exactly equal:
+  print "Accepted"
+else if the digits extracted from A equal the digits extracted from B:
+  print "Presentation Error"
+else:
+  print "Wrong Answer"
+```
 
 **小練習：**
 
