@@ -21,31 +21,21 @@ adjacent comparison、counting
 
 **C 骨架：**
 
+```c
+int T, n, prev, cur, high, low;
 scanf("%d", &T);
-
 for (int tc = 1; tc <= T; tc++) {
-
-scanf("%d", &n);
-
-scanf("%d", &prev);
-
-high = low = 0;
-
-for (int i = 1; i < n; i++) {
-
-scanf("%d", &cur);
-
-if (cur > prev) high++;
-
-else if (cur < prev) low++;
-
-prev = cur;
-
+  scanf("%d %d", &n, &prev);
+  high = low = 0;
+  for (int i = 1; i < n; i++) {
+    scanf("%d", &cur);
+    if (cur > prev) high++;
+    else if (cur < prev) low++;
+    prev = cur;
+  }
+  printf("Case %d: %d %d\n", tc, high, low);
 }
-
-printf("Case %d: %d %d\n", tc, high, low);
-
-}
+```
 
 **小練習：**
 
@@ -72,31 +62,21 @@ string comparison、if-else
 
 **C 骨架：**
 
+```c
 int caseNum = 1;
-
 char s[100];
 
-while (scanf("%s", s) == 1) {
-
-if (strcmp(s, "#") == 0)
-
-break;
-
-printf("Case %d: ", caseNum++);
-
-if (strcmp(s, "HELLO") == 0)
-
-printf("ENGLISH\n");
-
-else if (strcmp(s, "HOLA") == 0)
-
-printf("SPANISH\n");
-
-else
-
-printf("UNKNOWN\n");
-
+while (scanf("%s", s) == 1 && strcmp(s, "#") != 0) {
+  printf("Case %d: ", caseNum++);
+  if (strcmp(s, "HELLO") == 0) {
+    printf("ENGLISH\n");
+  } else if (strcmp(s, "HOLA") == 0) {
+    printf("SPANISH\n");
+  } else {
+    printf("UNKNOWN\n");
+  }
 }
+```
 
 **小練習：**
 
@@ -123,19 +103,12 @@ circular distance、absolute value
 
 **C 骨架：**
 
-while (scanf("%d %d", &a, &b) == 2) {
-
-if (a == -1 && b == -1)
-
-break;
-
-int d = abs(a - b);
-
-int ans = d < (100 - d) ? d : (100 - d);
-
-printf("%d\n", ans);
-
+```c
+while (scanf("%d %d", &a, &b) == 2 && (a != -1 || b != -1)) {
+  int d = abs(a - b);
+  printf("%d\n", d < 100 - d ? d : 100 - d);
 }
+```
 
 **小練習：**
 
@@ -161,13 +134,11 @@ bitwise operation、XOR
 
 **C 骨架：**
 
+```c
 unsigned long long a, b;
-
-while (scanf("%llu %llu", &a, &b) == 2) {
-
-printf("%llu\n", a ^ b);
-
-}
+while (scanf("%llu %llu", &a, &b) == 2)
+    printf("%llu\n", a ^ b);
+```
 
 **小練習：**
 
@@ -195,39 +166,26 @@ mapping、simulation
 
 **C 骨架：**
 
-read n
+```c
+  read n
+  read names[0..n-1]
+  init balance[0..n-1] = 0
 
-read names[0..n-1]
-
-init balance[0..n-1] = 0
-
-for each giver {
-
-read giverName, totalMoney, k
-
-find giver index g
-
-if (k > 0) {
-
-each = totalMoney / k
-
-balance[g] -= each \* k
-
-for k receivers {
-
-read receiverName
-
-find receiver index r
-
-balance[r] += each
-
-}
-
-}
-
-}
-
-print names[i], balance[i]
+  for each giver {
+    read giverName, totalMoney, k
+    find giver index g
+    if (k > 0) {
+      each = totalMoney / k
+      balance[g] -= each \* k
+      for k receivers {
+        read receiverName
+        find receiver index r
+        balance[r] += each
+      }
+    }
+  }
+  print names[i], balance[i]
+```
 
 **小練習：**
 
