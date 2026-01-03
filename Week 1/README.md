@@ -23,18 +23,21 @@ range、cycle length、max
 
 **C 骨架：**
 
-	while (scanf("%d %d", &i, &j) == 2) {
-		int L = min(i, j);
-		int R = max(i, j);
-		int maxLen = 0;
-	
-		for (int n = L; n <= R; n++) {
-			int len = simulate(n); // 模擬 3n+1，回傳步數
-			if (len > maxLen)
-				maxLen = len;
-		}
-		printf("%d %d %d\n", i, j, maxLen);
-	}
+```c
+while (scanf("%d %d", &i, &j) == 2) {
+  int L = min(i, j);
+  int R = max(i, j);
+  int maxLen = 0;
+
+  for (int n = L; n <= R; n++) {
+    int len = simulate(n);
+    if (len > maxLen) {
+      maxLen = len;
+    }
+  }
+  printf("%d %d %d\n", i, j, maxLen);
+}
+```
 
 **小練習：**
 
@@ -59,10 +62,10 @@ n-th root
 
 **C 骨架：**
 
-	while (scanf("%d %lf", &n, &p) == 2) {
-		long long k = (long long) round(pow(p, 1.0 / n));
-		printf("%lld\n", k);
-	}
+```c
+while (scanf("%d %lf", &n, &p) == 2)
+  printf("%lld\n", (long long) round(pow(p, 1.0 / n)));
+```
 
 **小練習：**
 
@@ -87,14 +90,16 @@ exchange、simulation
 
 **C 骨架：**
 
-	while (scanf("%d", &n) == 1) {
-		int drink = 0;
-		while (n >= 3) {
-			drink += n / 3;
-			n = n / 3 + n % 3;
-		}
-		printf("%d\n", drink);
-	}
+```c
+while (scanf("%d", &n) == 1) {
+    int drink = 0;
+    while (n >= 3) {
+        drink += n / 3;
+        n = n / 3 + n % 3;
+    }
+    printf("%d\n", drink);
+}
+```
 
 **小練習：**
 
@@ -117,9 +122,11 @@ minimum cuts
 
 **C 骨架：**
 
-	while (scanf("%lld %lld", &m, &n) == 2) {
-		printf("%lld\n", m \* n - 1);
-	}
+```c
+while (scanf("%lld %lld", &m, &n) == 2) {
+	printf("%lld\n", m \* n - 1);
+}
+```
 
 **小練習：**
 
@@ -143,12 +150,14 @@ triangle validity
 
 **C 骨架：**
 
-	read a, b, c
-	sort three values
-	if (a + b <= c)
-		print "Invalid"
-	else
-		classify triangle
+```c
+read a, b, c
+sort three values
+if (a + b <= c)
+	print "Invalid"
+else
+	classify triangle
+```
 
 **小練習：**
 
