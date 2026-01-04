@@ -1,11 +1,11 @@
-# 第 10 週｜綜合練習與檢核
+**【第 10 週｜綜合練習與檢核】**
 本週核心概念：**不是新技巧，而是「選對資料結構 + 正確模擬 + 穩定輸出格式」**
 
 這 5 題非常適合：期末考、綜合練習、分組討論題
 
 ---
 
-##【UVA 10008 - What's Cryptanalysis?】
+**【UVA 10008 - What's Cryptanalysis?】**
 
 **關鍵字**：frequency counting、sorting、case-insensitive
 
@@ -43,7 +43,7 @@ print result;
 
 ---
 
-##【UVA 299 - Train Swapping】##
+**【UVA 299 - Train Swappin】**
 
 **關鍵字**：bubble sort、inversion count
 
@@ -77,7 +77,7 @@ for each test case {
 
 ---
 
-##【UVA 10107 - What is the Median?】##
+**【UVA 10107 - What is the Median?】**
 
 **關鍵字**：running median、sorted container
 
@@ -107,7 +107,7 @@ while (scanf("%d", &x) == 1) {
 
 ---
 
-##【UVA 11044 - Searching for Nessy】##
+**【UVA 11044 - Searching for Nessy】**
 
 **關鍵字**：math observation、ceiling division
 
@@ -138,7 +138,7 @@ while (T--) {
 
 ---
 
-##【UVA 12403 - Save Setu】##
+**【UVA 12403 - Save Setu】**
 
 **關鍵字**：command processing、accumulation
 
