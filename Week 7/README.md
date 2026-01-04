@@ -25,33 +25,34 @@ frequency array、character counting
 
 **C 骨架：**
 
+```c
 char s1[1000], s2[1000];
+int cnt1[26] = {0}, cnt2[26] = {0};
 
-int cnt1[26], cnt2[26];
+while (fgets(s1, sizeof(s1), stdin) && fgets(s2, sizeof(s2), stdin)) {
+  memset(cnt1, 0, sizeof(cnt1));
+  memset(cnt2, 0, sizeof(cnt2));
 
-while (fgets(s1, sizeof(s1), stdin) &&
+  for (char *c = s1; *c && *c != '\n'; c++) {
+    if (isalpha(*c)) {
+      cnt1[*c - 'a']++;
+    }
+  }
 
-fgets(s2, sizeof(s2), stdin)) {
+  for (char *c = s2; *c && *c != '\n'; c++) {
+    if (isalpha(*c)) {
+      cnt2[*c - 'a']++;
+    }
+  }
 
-initialize cnt1, cnt2 to 0;
-
-for each character c in s1:
-
-cnt1[c - 'a']++;
-
-for each character c in s2:
-
-cnt2[c - 'a']++;
-
-for i = 0 to 25:
-
-repeat min(cnt1[i], cnt2[i]) times:
-
-print character (i + 'a');
-
-print newline;
-
+  for (int i = 0; i < 26; i++) {
+    for (int j = 0; j < min(cnt1[i], cnt2[i]); j++) {
+      printf("%c", i + 'a');
+    }
+  }
+  printf("\n");
 }
+```
 
 **小練習：**
 
@@ -81,41 +82,30 @@ string parsing、counting、sorting
 
 **C 骨架：**
 
+```c
 int n;
-
 char country[2000][50];
 
 scanf("%d", &n);
+getchar(); // Consume newline
 
-consume newline;
-
-for (i = 0; i < n; i++) {
-
-read entire line;
-
-extract first word as country[i];
-
+for (int i = 0; i < n; i++) {
+  scanf("%49[^\n]", country[i]);
+  getchar(); // Consume newline
 }
 
-sort country array;
+qsort(country, n, sizeof(country[0]), strcmp);
 
-count = 1;
-
-for (i = 1; i <= n; i++) {
-
-if (i < n and country[i] == country[i-1])
-
-count++;
-
-else {
-
-print country[i-1], count;
-
-count = 1;
-
+int count = 1;
+for (int i = 1; i <= n; i++) {
+  if (i < n && strcmp(country[i], country[i-1]) == 0) {
+    count++;
+  } else {
+    printf("%s %d\n", country[i-1], count);
+    count = 1;
+  }
 }
-
-}
+```
 
 **小練習：**
 
@@ -145,43 +135,39 @@ combination key、sorting、frequency
 
 **C 骨架：**
 
+```c
 int course[5];
-
 string keyList[10000];
+int maxCount = 1, currentCount = 1, total = 0;
 
 for each student {
-
-read 5 course numbers;
-
-sort course[5];
-
-create key from course[5];
-
-store key in keyList;
-
+  read 5 course numbers into course;
+  sort course;
+  string key = createKey(course);
+  store key in keyList;
 }
 
 sort keyList;
 
-maxCount = currentCount = 1;
-
-total = 0;
-
-for each key in keyList {
-
-if same as previous:
-
-currentCount++;
-
-else:
-
-update maxCount and total;
-
-currentCount = 1;
-
+for (int i = 1; i < keyList.length; i++) {
+  if (keyList[i] == keyList[i-1]) {
+    currentCount++;
+  } else {
+    if (currentCount > maxCount) {
+      maxCount = currentCount;
+    }
+    total += currentCount * currentCount;
+    currentCount = 1;
+  }
 }
 
+if (currentCount > maxCount) {
+  maxCount = currentCount;
+}
+total += currentCount * currentCount;
+
 print total;
+```
 
 **小練習：**
 
@@ -211,35 +197,25 @@ string cleaning、palindrome
 
 **C 骨架：**
 
+```c
 char line[1000], clean[1000];
 
 while (fgets(line, sizeof(line), stdin)) {
+  if (strcmp(line, "DONE\n") == 0) break;
 
-if (line == "DONE")
+  // Build clean string: keep only letters and convert to lowercase.
+  int left = 0, right = strlen(clean) - 1;
+  while (left < right) {
+    if (clean[left] != clean[right]) {
+      // Not palindrome
+    }
+    left++;
+    right--;
+  }
 
-break;
-
-build clean string:
-
-keep only letters
-
-convert to lowercase;
-
-left = 0, right = strlen(clean) - 1;
-
-while (left < right) {
-
-if (clean[left] != clean[right])
-
-not palindrome;
-
-left++; right--;
-
+  // Print result.
 }
-
-print result;
-
-}
+```
 
 **小練習：**
 
@@ -266,35 +242,37 @@ string mapping、normalization、duplicate detection
 
 **C 骨架：**
 
+```c
 char phone[10000][10];
 
+// Normalize and store phone numbers.
 for each input string s {
-
-convert letters to digits;
-
-remove '-';
-
-store normalized phone number;
-
+  // Convert letters to digits and remove hyphens.
+  normalize(s);
+  // Store normalized phone number.
+  store(phone, s);
 }
 
-sort phone numbers;
+// Sort phone numbers.
+sort(phone);
 
-count = 1;
-
-for (i = 1; i <= n; i++) {
-
-if (i < n and phone[i] == phone[i-1])
-
-count++;
-
-else if (count > 1)
-
-print phone[i-1], count;
-
-count = 1;
-
+// Count and print duplicate phone numbers.
+int count = 1;
+for (int i = 1; i < n; i++) {
+  if (phone[i] == phone[i - 1]) {
+    count++;
+  } else {
+    if (count > 1) {
+      print phone[i - 1], count;
+    }
+    count = 1;
+  }
 }
+// Check the last phone number.
+if (count > 1) {
+    print phone[n - 1], count;
+}
+```
 
 **小練習：**
 
