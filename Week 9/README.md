@@ -29,37 +29,24 @@ simulation、multi-criteria selection、string handling
 
 **C 骨架：**
 
+```c
 int caseNum = 1;
 
-while (read n, p and not both zero) {
+while (read n and p, not both zero) {
+  Skip n requirement lines;
+  bestCompliance = -1;
+  bestPrice = INF;
 
-skip n requirement lines;
+  for each proposal:
+    Read name, price, and compliance;
+    Skip compliance lines;
 
-bestCompliance = -1;
-
-bestPrice = INF;
-
-for each proposal {
-
-read name;
-
-read price, compliance;
-
-skip compliance lines;
-
-if (compliance > bestCompliance ||
-
-(compliance == bestCompliance && price < bestPrice)) {
-
-update best proposal;
-
+    if (compliance > bestCompliance || (compliance == bestCompliance && price < bestPrice)) {
+      Update best proposal;
+    }
+  Print case header and best proposal name;
 }
-
-}
-
-print case header and best proposal name;
-
-}
+```
 
 **小練習：**
 
@@ -86,21 +73,15 @@ custom sort、string concatenation、greedy
 
 **C 骨架：**
 
+```c
 char s[N][20];
-
 read n;
-
-read n strings into s[];
-
-sort s[] using comparator:
-
-return (a+b) > (b+a);
-
+read n strings into s;
+sort s using comparator: (a+b) > (b+a);
 for i = 0 to n-1:
-
-print s[i];
-
+  print s[i];
 print newline;
+```
 
 **小練習：**
 
@@ -128,37 +109,25 @@ base conversion、cost calculation、simulation
 
 **C 骨架：**
 
+```c
 read cost[0..35];
-
-read query count;
+read query_count;
 
 for each query n {
-
-minCost = INF;
-
-for base = 2 to 36 {
-
-temp = n;
-
-costSum = 0;
-
-while (temp > 0) {
-
-digit = temp % base;
-
-costSum += cost[digit];
-
-temp /= base;
-
+  minCost = INF;
+  for base = 2 to 36 {
+    costSum = 0;
+    temp = n;
+    while (temp > 0) {
+      digit = temp % base;
+      costSum += cost[digit];
+      temp /= base;
+    }
+    minCost = min(minCost, costSum);
+  }
+  print all bases with cost == minCost;
 }
-
-update minCost;
-
-}
-
-print all bases with cost == minCost;
-
-}
+```
 
 **小練習：**
 
@@ -185,19 +154,16 @@ string processing、digit sum、ratio calculation
 
 **C 骨架：**
 
-while (read two lines name1, name2) {
-
-sum1 = letter\_sum(name1);
-
-sum2 = letter\_sum(name2);
-
-reduce sum1 and sum2 to single digit;
-
-ratio = min(sum1, sum2) / max(sum1, sum2) \* 100;
-
-print ratio with two decimals;
-
+```c
+while (read name1 and name2) {
+  sum1 = letter_sum(name1);
+  sum2 = letter_sum(name2);
+  sum1 = reduce_to_single_digit(sum1);
+  sum2 = reduce_to_single_digit(sum2);
+  ratio = (float)min(sum1, sum2) / max(sum1, sum2) * 100;
+  printf("%.2f", ratio);
 }
+```
 
 **小練習：**
 
@@ -223,23 +189,17 @@ digit sum、iteration、digital root
 
 **C 骨架：**
 
+```c
 while (scanf("%s", s) == 1 && s != "0") {
-
-while (length(s) > 1) {
-
-sum = 0;
-
-for each digit d in s:
-
-sum += d;
-
-convert sum back to string s;
-
+  while (length(s) > 1) {
+    sum = 0;
+    for each digit d in s:
+    sum += d;
+    convert sum back to string s;
+  }
+  print s;
 }
-
-print s;
-
-}
+```
 
 **小練習：**
 
