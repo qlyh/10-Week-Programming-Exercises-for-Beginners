@@ -27,37 +27,26 @@ backtracking、constraint checking、8 queens
 
 **C 骨架：**
 
+```c++
 int col[9];
-
 bool usedCol[9], diag1[20], diag2[20];
 
 void dfs(int r) {
+  if (r == 9) {
+    print solution;
+    return;
+  }
 
-if (r == 9) {
-
-print solution;
-
-return;
-
+  for (int c = 1; c <= 8; c++) {
+    if (!usedCol[c] && !diag1[r+c] && !diag2[r-c+8]) {
+      usedCol[c] = diag1[r+c] = diag2[r-c+8] = true;
+      col[r] = c;
+      dfs(r + 1);
+      usedCol[c] = diag1[r+c] = diag2[r-c+8] = false;
+    }
+  }
 }
-
-for (int c = 1; c <= 8; c++) {
-
-if (!usedCol[c] && !diag1[r+c] && !diag2[r-c+8]) {
-
-mark used;
-
-col[r] = c;
-
-dfs(r + 1);
-
-unmark used;
-
-}
-
-}
-
-}
+```
 
 **小練習：**
 
@@ -86,37 +75,22 @@ permutation、recursion、expression evaluation
 
 **C 骨架：**
 
+```c++
 bool used[5];
 
 bool dfs(int depth, int value) {
+  if (depth == 5) return value == 23;
 
-if (depth == 5)
-
-return value == 23;
-
-for (int i = 0; i < 5; i++) {
-
-if (!used[i]) {
-
-used[i] = true;
-
-if (dfs(depth+1, value + a[i]) ||
-
-dfs(depth+1, value - a[i]) ||
-
-dfs(depth+1, value \* a[i]))
-
-return true;
-
-used[i] = false;
-
+  for (int i = 0; i < 5; ++i) {
+    if (!used[i]) {
+      used[i] = true;
+      if (dfs(depth + 1, value + a[i]) || dfs(depth + 1, value - a[i]) || dfs(depth + 1, value * a[i])) return true;
+      used[i] = false;
+    }
+  }
+  return false;
 }
-
-}
-
-return false;
-
-}
+```
 
 **小練習：**
 
@@ -144,23 +118,17 @@ recursion/iteration、palindrome、string number
 
 **C 骨架：**
 
+```c
 while (scanf("%s", s) == 1) {
-
-count = 0;
-
-while (!isPalindrome(s)) {
-
-reverse s to r;
-
-s = addStrings(s, r);
-
-count++;
-
+  int count = 0;
+  while (!isPalindrome(s)) {
+    reverse s to r;
+    s = addStrings(s, r);
+    count++;
+  }
+  print count and s;
 }
-
-print count and s;
-
-}
+```
 
 **小練習：**
 
@@ -188,21 +156,17 @@ dynamic programming、recurrence、tiling
 
 **C 骨架：**
 
+```c
 dp[0] = 1;
-
 dp[2] = 3;
 
 for (int i = 4; i <= maxN; i += 2) {
-
-dp[i] = 3 \* dp[i-2];
-
-for (int j = i-4; j >= 0; j -= 2) {
-
-dp[i] += 2 \* dp[j];
-
+  dp[i] = 3 * dp[i-2];
+  for (int j = i-4; j >= 0; j -= 2) {
+    dp[i] += 2 * dp[j];
+  }
 }
-
-}
+```
 
 **小練習：**
 
@@ -230,37 +194,26 @@ graph traversal、DFS、edge marking
 
 **C 骨架：**
 
+```c
 int path[10];
-
 bool usedEdge[20];
 
 void dfs(int node, int depth) {
+  if (depth == totalEdges) {
+    print path;
+    return;
+  }
 
-if (depth == totalEdges) {
-
-print path;
-
-return;
-
+  for (each edge e from node) {
+    if (!usedEdge[e]) {
+      usedEdge[e] = true;
+      path[depth] = nextNode;
+      dfs(nextNode, depth + 1);
+      usedEdge[e] = false;
+    }
+  }
 }
-
-for each edge e from node {
-
-if (!usedEdge[e]) {
-
-usedEdge[e] = true;
-
-path[depth] = nextNode;
-
-dfs(nextNode, depth + 1);
-
-usedEdge[e] = false;
-
-}
-
-}
-
-}
+```
 
 **小練習：**
 
