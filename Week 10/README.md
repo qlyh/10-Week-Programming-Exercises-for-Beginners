@@ -5,7 +5,8 @@
 
 ---
 
-## 1. UVA 10008 - What's Cryptanalysis?
+##【UVA 10008 - What's Cryptanalysis?】
+
 **關鍵字**：frequency counting、sorting、case-insensitive
 
 **核心邏輯**
@@ -42,7 +43,8 @@ print result;
 
 ---
 
-## 2. UVA 299 - Train Swapping
+##【UVA 299 - Train Swapping】##
+
 **關鍵字**：bubble sort、inversion count
 
 **核心邏輯**
@@ -75,7 +77,8 @@ for each test case {
 
 ---
 
-## 3. UVA 10107 - What is the Median?
+##【UVA 10107 - What is the Median?】##
+
 **關鍵字**：running median、sorted container
 
 **核心邏輯**
@@ -104,7 +107,8 @@ while (scanf("%d", &x) == 1) {
 
 ---
 
-## 4. UVA 11044 - Searching for Nessy
+##【UVA 11044 - Searching for Nessy】##
+
 **關鍵字**：math observation、ceiling division
 
 **核心邏輯**
@@ -134,7 +138,8 @@ while (T--) {
 
 ---
 
-## 5. UVA 12403 - Save Setu
+##【UVA 12403 - Save Setu】##
+
 **關鍵字**：command processing、accumulation
 
 **核心邏輯**
